@@ -4,14 +4,12 @@ public class Main {
 
         Library lib = new Library();
 
-        float random = Rand.randomFloat(-20f, 30f);
+        int simulationLength = 10;
 
-        System.out.println(random);
-
-        while (true) {
+        while (lib.currentDay < simulationLength) {
             
             // Advance time
-            lib.currentDay = lib.currentDay + 1;
+            lib.currentDay++;
             System.out.println("\n--- Day " + lib.currentDay + " ---");
 
             // simulate a random event
