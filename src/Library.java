@@ -12,12 +12,8 @@ class Library {
     List<String> presentInLibrary = new ArrayList<>();
 
     List<Member> members = new ArrayList<>();
-    List<Book> books = new ArrayList<>();
 
-    {
-        books.add(new Book("yes"));
-        books.add(new Book("no"));
-    }
+
 
     public void enter(String name) {
         if (!presentInLibrary.contains(name)) {

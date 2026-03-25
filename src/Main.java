@@ -8,6 +8,8 @@ public class Main {
         int simulationLength = 7;
         int simulationFrequency = 10;
 
+        String name = helper.generateRandomName();
+        System.out.println(name);
         while (library.currentDay < simulationLength) {
 
             // Advance time
