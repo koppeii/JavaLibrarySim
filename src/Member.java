@@ -1,8 +1,12 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Member {
 
-    // fields
-    String name = "";
+    String name;
+    List<Loan> loanedBooks = new ArrayList<>();
 
-    // need to have a constructor for this
-
+    public Member(String name) {
+        this.name = name;
+    }
 }

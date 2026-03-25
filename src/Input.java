@@ -74,7 +74,8 @@ public class Input
     // Waits for user to press Enter before continuing.
     public static void waitForUserToPressEnter(String prompt)
     {
-        System.out.print(prompt);
+        System.out.println(prompt);
+        // println is like writing System.out.printf("testing\n");
         scn.nextLine();
     }
 }

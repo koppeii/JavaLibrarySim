@@ -2,59 +2,40 @@
 public class Main {
     public static void main(String[] args) {
 
-        Library lib = new Library();
-        lib.Books();
-        lib.Members();
-        int simulationLength = 100;
+        Library library = new Library();
+        Helper helper = new Helper();
 
-        Loan loan1 = new Loan();
-        Loan loan2 = new Loan();
+        int simulationLength = 7;
+        int simulationFrequency = 10;
 
-        while (lib.currentDay < simulationLength) {
+        while (library.currentDay < simulationLength) {
 
             // Advance time
-            lib.currentDay++;
-            System.out.println("\n--- Day " + lib.currentDay + " ---");
-
-//            System.out.println(lib.books);
+            library.currentDay++;
+            System.out.println("\n--- Day " + library.currentDay + " ---");
 
             // simulate a random event
 
-            int randomNumber = Rand.randomInt(0, 100); // could generate 0, 1, 2, or 3
+            for (int i = 0; i < simulationFrequency; i++) {
+                int randomNumber = Rand.randomInt(0, 6);
 
-//            switch (randomNumber) {
-//                case 1:
-//                    lib.removeBooks(1);
-//
-//                case 2:
-//                    if (lib.books.get(1).isEmpty()) {
-//                    lib.returnBook(0);
-//                }
-//                    else {
-//                        System.out.println(121313);
-//                    }
-//
-//
-////                randomNumber == 2 && lib.books.get(1).isEmpty()) {
-////                    lib.returnBook(1);
-//            }
-
-//            switch (randomNumber) {
-//
-//            }
-
-            if (randomNumber % 2 == 1) {
-                loan1.addLoan(String.valueOf(randomNumber));
-            }
-            else {
-                loan2.addLoan(String.valueOf(randomNumber));
+                switch (randomNumber) {
+                    case 1:
+                        library.enter(helper.generateRandomName());
+                    case 2:
+                        library.leave(library.randomPerson());
+                    case 3:
+                        library.applyMembership(library.randomPerson());
+                    case 4:
+                        library.revokeMembership(library.randomMember());
+                    case 5:
+                        library.loanRandomBook(library.randomMember(), library.randomBook());
+                    case 6:
+                        library.returnRandomBook(library.randomMember());
+                }
             }
 
-
-//            Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
+            Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
         }
-
-        System.out.println(loan1.GetLoans());
-        System.out.println(loan2.GetLoans());
     }
 }
