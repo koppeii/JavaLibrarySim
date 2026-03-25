@@ -23,17 +23,19 @@ public class Main {
 
                 switch (randomNumber) {
                     case 1:
-                        library.enter(helper.generateRandomName());
+                        library.enter(helper.randomIndividual());
                     case 2:
-                        library.leave(library.randomPerson());
+                        library.leave(helper.randomPerson());
                     case 3:
-                        library.applyMembership(library.randomPerson());
+                        library.applyMembership(helper.randomPerson());
                     case 4:
-                        library.revokeMembership(library.randomMember());
+                        library.revokeMembership(helper.randomMember());
                     case 5:
-                        library.loanRandomBook(library.randomMember(), library.randomBook());
+                        library.loanRandomBook(helper.randomMember(), helper.randomBook(library.books));
                     case 6:
-                        library.returnRandomBook(library.randomMember());
+                        Member randomMember = helper.randomMember();
+
+                        library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.));
                 }
             }
 
