@@ -5,7 +5,7 @@ public class Main {
         Library lib = new Library();
         lib.Books();
         lib.Members();
-        int simulationLength = 10;
+        int simulationLength = 100;
 
         Loan loan1 = new Loan();
         Loan loan2 = new Loan();
@@ -20,7 +20,7 @@ public class Main {
 
             // simulate a random event
 
-            int randomNumber = Rand.randomInt(0, 30); // could generate 0, 1, 2, or 3
+            int randomNumber = Rand.randomInt(0, 100); // could generate 0, 1, 2, or 3
 
 //            switch (randomNumber) {
 //                case 1:
@@ -44,10 +44,10 @@ public class Main {
 //            }
 
             if (randomNumber % 2 == 1) {
-                loan1.AddLoan(String.valueOf(randomNumber));
+                loan1.addLoan(String.valueOf(randomNumber));
             }
             else {
-                loan2.AddLoan(String.valueOf(randomNumber));
+                loan2.addLoan(String.valueOf(randomNumber));
             }
 
 
