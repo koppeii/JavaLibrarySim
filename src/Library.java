@@ -5,6 +5,7 @@ class Library {
 
     int currentDay; // Current simulation day
     int currentHour;
+
     ArrayList<String> books = new ArrayList<>(10);
     ArrayList<String> removedBooks = new ArrayList<>(10);
     ArrayList<String> members = new ArrayList<>(10);
