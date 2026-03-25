@@ -4,32 +4,28 @@ import java.util.List;
 // can return the all loaned books
 public class Loan {
 
-    List<String> books;
+    List<Book> books;
 
     public Loan() {
         this.books = new ArrayList<>();
     }
 
-    public void addLoan(String bookName) {
+    public void addLoan(Book book) {
         // could consider to using bookIDs, as there could be books with the same name but different author
-        if (!this.books.contains(bookName)) {
-            this.books.add(bookName);
+        if (!this.books.contains(book)) {
+            this.books.add(book);
         }
         else {
-            System.out.printf(bookName + " has already been loaned out!");
+            System.out.printf("%s has already been loaned out!", book.name);
         }
     }
 
-    public void removeLoan(String bookName) {
-        if (this.books.contains(bookName)) {
-            this.books.remove(bookName);
+    public void removeLoan(Book book) {
+        if (this.books.contains(book)) {
+            this.books.remove(book);
         }
         else {
-            System.out.printf(bookName + " either does not exist, or the member has not loaned out the book!");
+            System.out.printf("%s either does not exist, or the member has not loaned out the book!", book.name);
         }
-    }
-
-    public List<String> GetLoans() {
-        return this.books;
     }
 }

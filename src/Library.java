@@ -51,56 +51,34 @@ class Library {
         }
     }
 
-    public void revokeMembership(String memberName) {
+    public void revokeMembership(Member member) {
         // check if they have a membership
-        // should i use the actual Member object as a parameter instead of a String?
 
-        Optional<Member> foundMember = members.stream().filter(member -> member.name.equals(memberName)).findFirst();
-        // Optional allows .filter to return nothing, not crashing the program
-        // .isPresent() checks if existingMember is not null
-
-        if (presentInLibrary.contains(memberName) && foundMember.isPresent()) {
-            Member member = foundMember.get();
-            // .get() unwraps the actual Member object
+        if (presentInLibrary.contains(member.name)) {
 
             int outstandingLoans = member.loanedBooks.size();
 
             if (outstandingLoans > 0) {
-                System.out.printf("%s attempted to revoke their membership with %d outstanding loans!\n", memberName, outstandingLoans);
+                System.out.printf("%s attempted to revoke their membership with %d outstanding loans!\n", member.name, outstandingLoans);
+                // could have a function that adds a "s" when the count != 1
             }
             else {
                 members.remove(member);
 
-                System.out.printf("%s has revoked their membership!\n", memberName);
+                System.out.printf("%s has revoked their membership!\n", member.name);
             }
         }
     }
 
     // should Member have the loan and return functions?
 
-    public void loanRandomBook(String memberName, String bookName) {
+    public void loanRandomBook(Member member, Book book) {
         // check if the book exists, and if the person is a member
     }
 
-    public void returnRandomBook(String memberName) {
-        // checks the Members loaned books, returns a random one
-    }
+    public void returnRandomBook(Member member, Book book) {
+        // finds a random book in the memberName's loans
 
-    public String randomMember() {
-        // returns the name/object of a random individual in members
 
-        return "";
-    }
-
-    public String randomPerson() {
-        // returns the name of a random individual in presentInLibrary
-
-        return "";
-    }
-
-    public String randomBook() {
-        // returns a random string/Book from books
-
-        return new Book("").name;
     }
 }
