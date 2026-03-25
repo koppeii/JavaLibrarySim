@@ -4,12 +4,11 @@ import java.util.ArrayList;
 public class Member {
 
     String name;
-    List<Loan> loanedBooks = new ArrayList<>();
+    Loan loanedBooks = new Loan();
 
 
 
     public Member(String name) {
-
         this.name = name;
     }
 }

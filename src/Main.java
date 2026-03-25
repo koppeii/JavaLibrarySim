@@ -10,6 +10,11 @@ public class Main {
 
         String name = helper.generateRandomName();
         System.out.println(name);
+
+        library.books.add(new Book("Fundamentals of Thermodynamics"));
+        library.books.add(new Book("5 Steps to a 5: AP Chemistry"));
+        library.books.add(new Book("The Bible"));
+
         while (library.currentDay < simulationLength) {
 
             // Advance time
@@ -22,20 +27,23 @@ public class Main {
                 int randomNumber = Rand.randomInt(0, 6);
 
                 switch (randomNumber) {
+                    // reformat, the odds of someone entering the library, and applying for a membership, and taking out a book is 1/216
                     case 1:
-                        library.enter(helper.randomIndividual());
+                        library.enter(helper.randomIndividual(library.members));
                     case 2:
-                        library.leave(helper.randomPerson());
+                        library.leave(helper.randomPersonInLibrary(library.presentInLibrary));
                     case 3:
-                        library.applyMembership(helper.randomPerson());
+                        library.applyMembership(helper.randomPersonInLibrary(library.presentInLibrary));
                     case 4:
-                        library.revokeMembership(helper.randomMember());
+                        library.revokeMembership(helper.randomMember(library.members));
                     case 5:
-                        library.loanRandomBook(helper.randomMember(), helper.randomBook(library.books));
+                        library.loanRandomBook(helper.randomMember(library.members), helper.randomBook(library.books));
                     case 6:
-                        Member randomMember = helper.randomMember();
+                        Member randomMember = helper.randomMember(library.members);
 
-                        library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.));
+                        if (randomMember != null) {
+                            library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.books));
+                        };
                 }
             }
 

@@ -1,3 +1,5 @@
+import java.text.MessageFormat;
+import java.util.List;
 
 public class Helper {
 
@@ -11,7 +13,7 @@ public class Helper {
         String firstName = first_names[first];
         String lastName = last_names[last];
 
-        return firstName + lastName;
+        return MessageFormat.format("{0} {1}", firstName, lastName);
     }
 
      public boolean pluralCheck(int count) {
@@ -19,30 +21,52 @@ public class Helper {
         return false;
      }
 
-     public String randomIndividual() {
-        int random = Rand.randomInt(0, 1);
+     public String randomIndividual(List<Member> memberList) {
+        int random = Rand.randomInt(0, 2);
 
         if (random == 1)
             return generateRandomName();
-        else
-            return randomMember().name;
+        else {
+            Member randomMember = randomMember(memberList);
+
+            if (randomMember != null)
+                return randomMember(memberList).name;
+            else
+                return "";
+        }
      }
 
-    public Member randomMember() {
+    public Member randomMember(List<Member> memberList) {
         // returns the name/object of a random individual in members
 
-        return new Member("");
+        if (!memberList.isEmpty()) {
+            int random = Rand.randomInt(0, memberList.size());
+
+            return memberList.get(random);
+        }
+
+        return null;
     }
 
-    public String randomPerson() {
+    public String randomPersonInLibrary(List<String> people) {
         // returns the name of a random individual in presentInLibrary
 
+        if (!people.isEmpty()) {
+            int random = Rand.randomInt(0, people.size());
+
+            return people.get(random);
+        }
         return "";
     }
 
     public Book randomBook(List<Book> bookList) {
         // returns a random string/Book from the given bookList
+        if (!bookList.isEmpty()) {
+            int random = Rand.randomInt(0, bookList.size());
 
-        return new Book("");
+            return bookList.get(random);
+        }
+
+        return null;
     }
 }

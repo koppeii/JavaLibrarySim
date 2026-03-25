@@ -12,11 +12,11 @@ class Library {
     List<String> presentInLibrary = new ArrayList<>();
 
     List<Member> members = new ArrayList<>();
-
+    List<Book> books = new ArrayList<>();
 
 
     public void enter(String name) {
-        if (!presentInLibrary.contains(name)) {
+        if (!presentInLibrary.contains(name) && !name.isBlank()) {
             presentInLibrary.add(name);
 
             System.out.printf("%s has entered the Library!\n", name);
@@ -26,7 +26,7 @@ class Library {
     }
 
     public void leave(String name) {
-        if (presentInLibrary.contains(name)) {
+        if (presentInLibrary.contains(name) && !name.isBlank()) {
             presentInLibrary.remove(name);
 
             System.out.printf("%s has left the Library!\n", name);
@@ -35,6 +35,8 @@ class Library {
 
     public void applyMembership(String personName) {
         // check if theyre in the library
+
+        if (personName.isBlank()) return;
 
         boolean existingMember = members.stream().anyMatch(member -> member.name.equals(personName));
         // checks if the person is already a member, new syntax
@@ -50,9 +52,11 @@ class Library {
     public void revokeMembership(Member member) {
         // check if they have a membership
 
-        if (presentInLibrary.contains(member.name)) {
+        if (member == null) return;
 
-            int outstandingLoans = member.loanedBooks.size();
+        if (presentInLibrary.contains(member.name) && members.contains(member)) {
+
+            int outstandingLoans = member.loanedBooks.books.size();
 
             if (outstandingLoans > 0) {
                 System.out.printf("%s attempted to revoke their membership with %d outstanding loans!\n", member.name, outstandingLoans);
@@ -70,11 +74,27 @@ class Library {
 
     public void loanRandomBook(Member member, Book book) {
         // check if the book exists, and if the person is a member
+
+        if (member == null || book == null) return;
+
+        if (books.contains(book) && presentInLibrary.contains(member.name)) {
+            member.loanedBooks.addLoan(book);
+            books.remove(book);
+
+            System.out.printf("%s has taken out the book \"%s\"!\n", member.name, book.name);
+        }
     }
 
     public void returnRandomBook(Member member, Book book) {
         // finds a random book in the memberName's loans
 
+        if (member == null || book == null) return;
 
+        if (member.loanedBooks.books.contains(book) && presentInLibrary.contains(member.name)) {
+            member.loanedBooks.removeLoan(book);
+            books.add(book);
+
+            System.out.printf("%s has returned the book \"%s\"!\n", member.name, book.name);
+        }
     }
 }
