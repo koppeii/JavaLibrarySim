@@ -12,7 +12,7 @@ public class Main {
 
             // Advance time
             library.currentDay++;
-            System.out.println("\n--- Day " + library.currentDay + " ---");
+            System.out.println("--- Day " + library.currentDay + " Start ---");
 
             // simulate a random event
 
@@ -35,7 +35,10 @@ public class Main {
                 }
             }
 
-            Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
+            if (library.currentDay >= simulationLength)
+                Input.waitForUserToPressEnter("Press Enter to end the simulation.");
+            else
+                Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
         }
     }
 }
