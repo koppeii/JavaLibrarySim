@@ -5,7 +5,10 @@ public class Main {
         Library lib = new Library();
         lib.Books();
         lib.Members();
-        int simulationLength = 100;
+        int simulationLength = 10;
+
+        Loan loan1 = new Loan();
+        Loan loan2 = new Loan();
 
         while (lib.currentDay < simulationLength) {
 
@@ -13,33 +16,45 @@ public class Main {
             lib.currentDay++;
             System.out.println("\n--- Day " + lib.currentDay + " ---");
 
-            System.out.println(lib.books);
+//            System.out.println(lib.books);
 
             // simulate a random event
 
-            int randomNumber = Rand.randomInt(0, 4); // could generate 0, 1, 2, or 3
-            switch (randomNumber) {
-                case 1:
-                    lib.removeBooks(1);
+            int randomNumber = Rand.randomInt(0, 30); // could generate 0, 1, 2, or 3
 
-                case 2:
-                    if (lib.books.get(1).isEmpty()) {
-                    lib.returnBook(0);
-                }
-                    else {
-                        System.out.println(121313);
-                    }
+//            switch (randomNumber) {
+//                case 1:
+//                    lib.removeBooks(1);
+//
+//                case 2:
+//                    if (lib.books.get(1).isEmpty()) {
+//                    lib.returnBook(0);
+//                }
+//                    else {
+//                        System.out.println(121313);
+//                    }
+//
+//
+////                randomNumber == 2 && lib.books.get(1).isEmpty()) {
+////                    lib.returnBook(1);
+//            }
 
+//            switch (randomNumber) {
+//
+//            }
 
-//                randomNumber == 2 && lib.books.get(1).isEmpty()) {
-//                    lib.returnBook(1);
+            if (randomNumber % 2 == 1) {
+                loan1.AddLoan(String.valueOf(randomNumber));
+            }
+            else {
+                loan2.AddLoan(String.valueOf(randomNumber));
             }
 
-            switch (randomNumber) {
 
-            }
-
-            Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
+//            Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
         }
+
+        System.out.println(loan1.GetLoans());
+        System.out.println(loan2.GetLoans());
     }
 }
