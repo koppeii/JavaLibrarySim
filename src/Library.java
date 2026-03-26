@@ -2,17 +2,19 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 class Library {
 
     int currentDay; // Current simulation day
     int currentHour;
 
+    List<Short> test;
+
     List<String> presentInLibrary = new ArrayList<>();
 
     List<Member> members = new ArrayList<>();
     List<Book> books = new ArrayList<>();
+
     {
         books.add(new Book("Fundamentals of Thermodynamics"));
         books.add(new Book("5 Steps to a 5: AP Chemistry"));
@@ -23,10 +25,6 @@ class Library {
         books.add(new Book("Forrest Gump"));
         books.add(new Book("Forrest Gump: Gump & Co."));
     }
-
-
-
-
 
     public void enter(String name) {
         if (!presentInLibrary.contains(name) && !name.isBlank()) {

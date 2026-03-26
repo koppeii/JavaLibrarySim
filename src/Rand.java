@@ -47,4 +47,10 @@ public class Rand
 
         return rand.nextFloat(maxExclusive - minInclusive) + minInclusive;
     }
+
+    public static double randomDouble() {
+        Initialize();
+
+        return rand.nextDouble();
+    }
 }
