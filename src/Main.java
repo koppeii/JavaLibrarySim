@@ -33,15 +33,15 @@ public class Main {
                 else if (inOut == 1)
                     library.leave(helper.randomPersonInLibrary(library.presentInLibrary));
 
-                for (int p = 0; p < library.presentInLibrary.size(); p++) {
-                    // why isnt this being called?
+                for (String person : library.presentInLibrary) {
+                    // new syntax, loop through every String in library.presentInLibrary, with person being the index
                     int randomAction = Rand.randomInt(0, 4);
 
 //                    System.out.println(randomAction);
 
                     switch (randomAction) {
                         case 0:
-                            library.applyMembership(library.presentInLibrary.get(p));
+                            library.applyMembership(person);
                         case 1:
                             library.revokeMembership(helper.randomMember(library.members));
                         case 2:
