@@ -79,6 +79,14 @@ public class Main {
 //                System.out.println(library.members);
 //                System.out.println(library.books);
             }
+
+            if (library.members.isEmpty())
+                System.out.println("No members yet!");
+            else
+                System.out.println("Members: " + library.members);
+            
+            System.out.println("Books: " + library.books);
+
             if (library.currentDay >= simulationLength)
                 Input.waitForUserToPressEnter("Press Enter to end the simulation.");
             else
