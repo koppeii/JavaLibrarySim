@@ -8,8 +8,6 @@ class Library {
     int currentDay; // Current simulation day
     int currentHour;
 
-    List<Short> test;
-
     List<String> presentInLibrary = new ArrayList<>();
 
     List<Member> members = new ArrayList<>();
@@ -89,9 +87,7 @@ class Library {
         if (member == null || book == null) return;
 
         if (books.contains(book) && presentInLibrary.contains(member.name)) {
-
             member.loanedBooks.addLoan(book);
-
             books.remove(book);
 
             System.out.printf("%s has taken out the book \"%s\"!\n", member.name, book.name);
@@ -115,18 +111,13 @@ class Library {
     //get put in list of thief
     public void stealBook(String member, Book book) {
 
-        if (book == null){
-            return;
-        }
+        if (book == null) return;
 
         if (presentInLibrary.contains(member)) {
             books.remove(book);
             System.out.printf("%s has stolen the book! \"%s\"!\n", member, book.name);
             leave(member);
 
-
         }
-
-
     }
 }

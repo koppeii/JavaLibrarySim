@@ -4,7 +4,7 @@ import java.util.List;
 public class Book {
 
     // fields
-    Library library = new Library();
+//    Library library = new Library();
     String name;
 //    int dueDate = library.currentDay + 2; // due date of 0 will represent that it is not taken out
 //

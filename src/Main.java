@@ -20,7 +20,7 @@ public class Main {
 
         WeightedSelection<Integer> weightedSelection = new WeightedSelection<>(eventTypes, weightTypes);
 
-        int simulationLength = 100;
+        int simulationLength = 67;
         int simulationFrequency = 10;
 
         String name = helper.generateRandomName();
@@ -34,10 +34,11 @@ public class Main {
 
             // simulate a random event
 
-            for (int i = 0; i < simulationFrequency; i++) {
-                // should add weights to simulate more realistic actions
-
+            while (library.currentHour < simulationFrequency) {
                 int randomEvent = weightedSelection.selectRandomItem();
+
+                // Advance time
+                library.currentHour++;
 
                 switch (randomEvent) {
                     case 0:
@@ -73,12 +74,10 @@ public class Main {
                         if (thief != null)
                             library.stealBook(thief, helper.randomBook(library.books));
                         break;
-
                 }
-
-//                System.out.println(library.members);
-//                System.out.println(library.books);
             }
+
+            library.currentHour = 0;
 
             if (library.members.isEmpty())
                 System.out.println("No members yet!");

@@ -24,6 +24,8 @@ public class Helper {
      public String randomIndividual(List<Member> memberList) {
         int random = Rand.randomInt(0, 2);
 
+        -- add a greater weight for someone whos already a member
+
         if (random == 1)
             return generateRandomName();
         else {
