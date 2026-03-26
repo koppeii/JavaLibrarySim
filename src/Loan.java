@@ -28,4 +28,9 @@ public class Loan {
             System.out.printf("%s either does not exist, or the member has not loaned out the book!", book.name);
         }
     }
+    public void stealBook(Book book) {
+        if (!this.books.contains(book)) {
+        //wanted to add a list of stolen books
+        }
+    }
 }

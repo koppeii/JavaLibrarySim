@@ -13,6 +13,19 @@ class Library {
 
     List<Member> members = new ArrayList<>();
     List<Book> books = new ArrayList<>();
+    {
+        books.add(new Book("Fundamentals of Thermodynamics"));
+        books.add(new Book("5 Steps to a 5: AP Chemistry"));
+        books.add(new Book("The Bible"));
+        books.add(new Book("Roses and Champagne"));
+        books.add(new Book("It ends with us"));
+        books.add(new Book("Chemistry 2"));
+        books.add(new Book("Forrest Gump"));
+        books.add(new Book("Forrest Gump: Gump & Co."));
+    }
+
+
+
 
 
     public void enter(String name) {
@@ -96,5 +109,22 @@ class Library {
 
             System.out.printf("%s has returned the book \"%s\"!\n", member.name, book.name);
         }
+    }
+
+    //want to make it so if a someone steals a book they cant be a member
+    //get put in list of thief
+    public void stealBook(String member, Book book) {
+
+        if (book == null){
+            return;
+        }
+
+        if (presentInLibrary.contains(member)) {
+            books.remove(book);
+
+            System.out.printf("%s has stolen the book! \"%s\"!\n", member, book.name);
+        }
+
+
     }
 }
