@@ -1,11 +1,21 @@
-import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Helper {
 
     // for helper functions that don't really have a place anywhere else
-    private static final String[] first_names = {"Mike", "Ted", "Alex", "Gab", "Gabriel", "Micheal"};
-    private static final String[] last_names = {"Brown", "Smith", "Altura", "Licup", "Upao", "Altura"};
+    private static final String[] first_names = {"Mike", "Ted", "Alex", "Gab", "Gabriel", "Micheal", "Paul", "Alice", "Grimm", "John", "Jane", "Mary", "Lewis",
+    "Elma", "Victoria", "Agnes"};
+    private static final String[] last_names = {"Brown", "Smith", "Altura", "Licup", "Upao", "Altura", "Rempel", "Smith", "Liddell", "Doe", "Sue", "Caroll",
+    "Tachyon"};
+
+    private static final List<Integer> eventTypes = new ArrayList<>(Arrays.asList(0, 1));
+    private static final List<Double> weightTypes = new ArrayList<>(Arrays.asList(20d, 80d));
+
+    private static final WeightedSelection<Integer> weightedSelection= new WeightedSelection<>(eventTypes, weightTypes);
+        // static means that the value is shared across all classes/objects, one new Helper(); can change this function if it werent a private final, can also be changed
+        // by another new Helper();
 
     public String generateRandomName() {
         int first = Rand.randomInt(0, first_names.length);
@@ -13,7 +23,7 @@ public class Helper {
         String firstName = first_names[first];
         String lastName = last_names[last];
 
-        return MessageFormat.format("{0} {1}", firstName, lastName);
+        return firstName + " " + lastName;
     }
 
      public boolean pluralCheck(int count) {
@@ -22,9 +32,7 @@ public class Helper {
      }
 
      public String randomIndividual(List<Member> memberList) {
-        int random = Rand.randomInt(0, 2);
-
-        -- add a greater weight for someone whos already a member
+        int random = weightedSelection.selectRandomItem();
 
         if (random == 1)
             return generateRandomName();

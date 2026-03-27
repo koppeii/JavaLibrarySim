@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Library {
-
     int currentDay; // Current simulation day
     int currentHour;
 
@@ -12,6 +11,9 @@ class Library {
 
     List<Member> members = new ArrayList<>();
     List<Book> books = new ArrayList<>();
+
+    private static final int maxLoans = 3;
+    private static final int maxMembers = 8;
 
     {
         books.add(new Book("Fundamentals of Thermodynamics"));
@@ -22,6 +24,13 @@ class Library {
         books.add(new Book("Chemistry 2"));
         books.add(new Book("Forrest Gump"));
         books.add(new Book("Forrest Gump: Gump & Co."));
+        books.add(new Book("Little Red Riding Hood"));
+        books.add(new Book("Hansel and Gretel"));
+        books.add(new Book("Cinderella"));
+        books.add(new Book("Alice in Wonderland"));
+        books.add(new Book("1984"));
+        books.add(new Book("Little Match Girl"));
+        books.add(new Book("Java For Dummies"));
     }
 
     public void enter(String name) {
@@ -29,8 +38,8 @@ class Library {
             presentInLibrary.add(name);
 
             System.out.printf("%s has entered the Library!\n", name);
-            // different types (strings, integers) use different formats (%s, %d) to be written as strings
-            // remembered seeing this in python
+                // different types (strings, integers) use different formats (%s, %d) to be written as strings
+                // remembered seeing this in python
         }
     }
 
@@ -48,10 +57,15 @@ class Library {
         if (personName.isBlank()) return;
 
         boolean existingMember = members.stream().anyMatch(member -> member.name.equals(personName));
-        // checks if the person is already a member, new syntax
-        // similar to pythons lambda
+            // checks if the person is already a member, new syntax
+            // similar to pythons lambda
 
         if (presentInLibrary.contains(personName) && !existingMember) {
+            if (members.size() >= maxMembers) {
+                System.out.printf("%s has attempted to apply for a membership, but the max of %d members has been reached!\n", personName, maxMembers);
+                return;
+            }
+
             members.add(new Member(personName));
 
             System.out.printf("%s has applied for a Membership!\n", personName);
@@ -69,7 +83,7 @@ class Library {
 
             if (outstandingLoans > 0) {
                 System.out.printf("%s attempted to revoke their membership with %d outstanding loans!\n", member.name, outstandingLoans);
-                // could have a function that adds a "s" when the count != 1
+                    // could have a function that adds a "s" when the count != 1
             }
             else {
                 members.remove(member);
@@ -87,6 +101,11 @@ class Library {
         if (member == null || book == null) return;
 
         if (books.contains(book) && presentInLibrary.contains(member.name)) {
+            if (member.loanedBooks.books.size() >= maxLoans) {
+                System.out.printf("%s has attempted to take more than %d books at once!\n", member.name, maxLoans);
+                return;
+            }
+
             member.loanedBooks.addLoan(book);
             books.remove(book);
 
@@ -116,6 +135,7 @@ class Library {
         if (presentInLibrary.contains(member)) {
             books.remove(book);
             System.out.printf("%s has stolen the book! \"%s\"!\n", member, book.name);
+
             leave(member);
 
         }

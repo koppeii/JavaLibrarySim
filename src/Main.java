@@ -1,8 +1,5 @@
-import javax.lang.model.type.ArrayType;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 // Simulation
@@ -12,19 +9,15 @@ public class Main {
         Library library = new Library();
         Helper helper = new Helper();
 
-        Integer[] events = {0, 1, 2, 3, 4, 5, 6}; // why didnt int[] work?
-        List<Integer> eventTypes = new ArrayList<>(Arrays.asList(events));
-
-        Double[] weights = {20d, 10d, 30d, 5d, 20d, 10d, 5d}; // doesnt necessarily have to sum to 100
-        List<Double> weightTypes = new ArrayList<>(Arrays.asList(weights));
+        List<Integer> eventTypes = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
+            // represents the 7 events that can occur
+        List<Double> weightTypes = new ArrayList<>(Arrays.asList(20d, 10d, 25d, 5d, 20d, 19d, 1d));
+            // weightTypes.size() should match the .size() of eventTypes
 
         WeightedSelection<Integer> weightedSelection = new WeightedSelection<>(eventTypes, weightTypes);
 
         int simulationLength = 67;
         int simulationFrequency = 10;
-
-        String name = helper.generateRandomName();
-        System.out.println(name);
 
         while (library.currentDay < simulationLength) {
 
@@ -78,6 +71,8 @@ public class Main {
             }
 
             library.currentHour = 0;
+
+            System.out.println();
 
             if (library.members.isEmpty())
                 System.out.println("No members yet!");
