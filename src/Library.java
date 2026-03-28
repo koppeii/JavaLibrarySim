@@ -7,15 +7,18 @@ class Library {
     int currentDay; // Current simulation day
     int currentHour;
 
-    List<String> presentInLibrary = new ArrayList<>();
+    final Helper helper = new Helper();
 
+    List<String> presentInLibrary = new ArrayList<>();
     List<Member> members = new ArrayList<>();
     List<Book> books = new ArrayList<>();
 
     private static final int maxLoans = 3;
     private static final int maxMembers = 8;
 
-    {
+    public Library() {
+        // creates book for library when new Library()
+
         books.add(new Book("Fundamentals of Thermodynamics"));
         books.add(new Book("5 Steps to a 5: AP Chemistry"));
         books.add(new Book("The Bible"));
@@ -82,7 +85,7 @@ class Library {
             int outstandingLoans = member.loanedBooks.books.size();
 
             if (outstandingLoans > 0) {
-                System.out.printf("%s attempted to revoke their membership with %d outstanding loans!\n", member.name, outstandingLoans);
+                System.out.printf("%s attempted to revoke their membership with %d outstanding loan%s!\n", member.name, outstandingLoans, helper.pluralCheck(outstandingLoans));
                     // could have a function that adds a "s" when the count != 1
             }
             else {
@@ -102,7 +105,7 @@ class Library {
 
         if (books.contains(book) && presentInLibrary.contains(member.name)) {
             if (member.loanedBooks.books.size() >= maxLoans) {
-                System.out.printf("%s has attempted to take more than %d books at once!\n", member.name, maxLoans);
+                System.out.printf("%s has attempted to take more than %d book%s at once!\n", member.name, maxLoans, helper.pluralCheck(maxLoans));
                 return;
             }
 
@@ -138,6 +141,7 @@ class Library {
 
             leave(member);
 
+            // find out if theyre a member and remove the membership
         }
     }
 }

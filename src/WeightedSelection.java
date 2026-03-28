@@ -10,8 +10,6 @@ public class WeightedSelection<T> {
     private final List<Double> weights;
     private final double totalWeight;
 
-    private Rand random;
-
     public WeightedSelection(List<T> items, List<Double> weights) {
         if (items.size() != weights.size()) {
             throw new IllegalArgumentException("Items and weights must have the same size.");

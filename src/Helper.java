@@ -11,7 +11,7 @@ public class Helper {
     "Tachyon"};
 
     private static final List<Integer> eventTypes = new ArrayList<>(Arrays.asList(0, 1));
-    private static final List<Double> weightTypes = new ArrayList<>(Arrays.asList(20d, 80d));
+    private static final List<Double> weightTypes = new ArrayList<>(Arrays.asList(80d, 20d));
 
     private static final WeightedSelection<Integer> weightedSelection= new WeightedSelection<>(eventTypes, weightTypes);
         // static means that the value is shared across all classes/objects, one new Helper(); can change this function if it werent a private final, can also be changed
@@ -26,9 +26,11 @@ public class Helper {
         return firstName + " " + lastName;
     }
 
-     public boolean pluralCheck(int count) {
+     public String pluralCheck(int count) {
+        if (count == 1)
+            return "";
 
-        return false;
+        return "s";
      }
 
      public String randomIndividual(List<Member> memberList) {

@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,8 +17,9 @@ public class Main {
 
         WeightedSelection<Integer> weightedSelection = new WeightedSelection<>(eventTypes, weightTypes);
 
-        int simulationLength = 67;
-        int simulationFrequency = 10;
+        final int simulationLength = 67;
+        final int simulationFrequency = 10;
+        final boolean verbose = false;
 
         while (library.currentDay < simulationLength) {
 
@@ -72,14 +74,26 @@ public class Main {
 
             library.currentHour = 0;
 
+            for (int m = library.presentInLibrary.size() - 1; m >= 0; m--)
+                library.leave(library.presentInLibrary.get(m));
+                // libraries tend to empty out when they close
+
             System.out.println();
 
             if (library.members.isEmpty())
                 System.out.println("No members yet!");
+            else {
+                if (verbose)
+                    System.out.println("Members: " + library.members);
+                else
+                    System.out.println("Members: " + library.members.size());
+            }
+
+            if (verbose)
+                System.out.println("Available books: " + library.books);
             else
-                System.out.println("Members: " + library.members);
-            
-            System.out.println("Books: " + library.books);
+                System.out.println("Available Books " + library.books.size());
+
 
             if (library.currentDay >= simulationLength)
                 Input.waitForUserToPressEnter("Press Enter to end the simulation.");
