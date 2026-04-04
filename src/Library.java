@@ -75,7 +75,7 @@ class Library {
             }
 
             if (thiefList.contains(personName)) {
-                System.out.printf("The thief \"%s\" has attempt to apply for a membership!", personName);
+                System.out.printf("The thief \"%s\" has attempt to apply for a membership!\n", personName);
                 return;
             }
 
