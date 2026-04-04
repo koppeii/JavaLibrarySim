@@ -17,15 +17,15 @@ public class Main {
 
         WeightedSelection<Integer> weightedSelection = new WeightedSelection<>(eventTypes, weightTypes);
 
-        final int simulationLength = 67;
-        final int simulationFrequency = 10;
+        final int simulationLength = 14;
+        final int simulationFrequency = 6;
         final boolean verbose = false;
 
         while (library.currentDay < simulationLength) {
 
             // Advance time
             library.currentDay++;
-            System.out.println("--- Day " + library.currentDay + " Start ---");
+            System.out.println("--- Day " + library.currentDay + "/" + simulationLength + " Start ---");
 
             // simulate a random event
 
@@ -58,16 +58,16 @@ public class Main {
 
                     case 5:
                         Member randomMember = helper.randomMember(library.members);
+                        if (randomMember == null) break;
 
-                        if (randomMember != null)
-                            library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.books));
+                        library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.books));
                         break;
 
                     case 6:
                         String thief = helper.randomPersonInLibrary(library.presentInLibrary);
+                        if (thief.isBlank()) break;
 
-                        if (thief != null)
-                            library.stealBook(thief, helper.randomBook(library.books));
+                        library.stealBook(thief, helper.randomBook(library.books));
                         break;
                 }
             }

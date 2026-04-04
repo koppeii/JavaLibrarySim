@@ -1,6 +1,7 @@
 import java.util.List;
 
 public class WeightedSelection<T> {
+
     private final List<T> items;
         // private: only exists in the class, cannot be accessed outside
         // final: can only be assigned once, but items inside the list can be .add(), .remove(), etc.

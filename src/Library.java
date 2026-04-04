@@ -2,14 +2,18 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 class Library {
+
     int currentDay; // Current simulation day
     int currentHour;
 
     final Helper helper = new Helper();
 
     List<String> presentInLibrary = new ArrayList<>();
+    List<String> thiefList = new ArrayList<>();
+
     List<Member> members = new ArrayList<>();
     List<Book> books = new ArrayList<>();
 
@@ -17,7 +21,7 @@ class Library {
     private static final int maxMembers = 8;
 
     public Library() {
-        // creates book for library when new Library()
+        // creates books for library when new Library();
 
         books.add(new Book("Fundamentals of Thermodynamics"));
         books.add(new Book("5 Steps to a 5: AP Chemistry"));
@@ -59,13 +63,19 @@ class Library {
 
         if (personName.isBlank()) return;
 
-        boolean existingMember = members.stream().anyMatch(member -> member.name.equals(personName));
+        boolean existingMember = members.stream()
+                .anyMatch(member -> member.name.equals(personName));
             // checks if the person is already a member, new syntax
             // similar to pythons lambda
 
         if (presentInLibrary.contains(personName) && !existingMember) {
             if (members.size() >= maxMembers) {
                 System.out.printf("%s has attempted to apply for a membership, but the max of %d members has been reached!\n", personName, maxMembers);
+                return;
+            }
+
+            if (thiefList.contains(personName)) {
+                System.out.printf("The thief \"%s\" has attempt to apply for a membership!", personName);
                 return;
             }
 
@@ -129,19 +139,27 @@ class Library {
         }
     }
 
-    //want to make it so if a someone steals a book they cant be a member
-    //get put in list of thief
-    public void stealBook(String member, Book book) {
+    public void stealBook(String personName, Book book) {
 
-        if (book == null) return;
+        if (personName.isBlank() || book == null) return;
 
-        if (presentInLibrary.contains(member)) {
+        if (presentInLibrary.contains(personName)) {
             books.remove(book);
-            System.out.printf("%s has stolen the book! \"%s\"!\n", member, book.name);
+            System.out.printf("%s has stolen the book! \"%s\"!\n", personName, book.name);
 
-            leave(member);
+            Optional<Member> existingMember = members.stream()
+                    .filter(member -> member.name.equals(personName))
+                    .findFirst();
+                // finds if the thief, using their name, is a member.
+                // if not found, existingMember = null, else returns the appropiate Member
 
-            // find out if theyre a member and remove the membership
+            if (existingMember != null)
+                members.remove(existingMember);
+
+            if (!thiefList.contains(personName))
+                thiefList.add(personName);
+
+            leave(personName);
         }
     }
 }

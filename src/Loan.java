@@ -8,7 +8,7 @@ public class Loan {
     public Loan() { this.books = new ArrayList<>(); }
 
     public void addLoan(Book book) {
-        // could consider to using bookIDs, as there could be books with the same name but different author
+        // could consider to using bookIDs, as there could be books with the same name
         if (!this.books.contains(book))
             this.books.add(book);
         else
