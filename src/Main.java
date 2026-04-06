@@ -11,7 +11,7 @@ public class Main {
 
         List<Integer> eventTypes = new ArrayList<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6));
             // represents the 7 events that can occur
-        List<Double> weightTypes = new ArrayList<>(Arrays.asList(20d, 10d, 25d, 5d, 20d, 19d, 1d));
+        List<Double> weightTypes = new ArrayList<>(Arrays.asList(25d, 5d, 25d, 5d, 25d, 14d, 1d));
             // weightTypes.size() should match the .size() of eventTypes
 
         WeightedSelection<Integer> weightedSelection = new WeightedSelection<>(eventTypes, weightTypes);

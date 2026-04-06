@@ -11,7 +11,7 @@ public class Helper {
     "Tachyon"};
 
     private static final List<Integer> eventTypes = new ArrayList<>(Arrays.asList(0, 1));
-    private static final List<Double> weightTypes = new ArrayList<>(Arrays.asList(80d, 20d));
+    private static final List<Double> weightTypes = new ArrayList<>(Arrays.asList(70d, 30d));
 
     private static final WeightedSelection<Integer> weightedSelection= new WeightedSelection<>(eventTypes, weightTypes);
         // static means that the value is shared across all classes/objects, one new Helper(); can change this function if it werent a private final, can also be changed
