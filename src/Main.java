@@ -16,19 +16,19 @@ public class Main {
 
         WeightedSelection<Integer> weightedSelection = new WeightedSelection<>(eventTypes, weightTypes);
 
-        final int simulationLength = 14;
-        final int simulationFrequency = 6;
-        final boolean verbose = false;
+        final int SIMULATIONLENGTH = 14;
+        final int SIMULATIONFREQUENCY = 6;
+        final boolean VERBOSE = false;
 
-        while (library.currentDay < simulationLength) {
+        while (library.currentDay < SIMULATIONLENGTH) {
 
             // Advance time
             library.currentDay++;
-            System.out.println("--- Day " + library.currentDay + "/" + simulationLength + " Start ---");
+            System.out.println("--- Day " + library.currentDay + "/" + SIMULATIONLENGTH + " Start ---");
 
             // simulate a random event
 
-            while (library.currentHour < simulationFrequency) {
+            while (library.currentHour < SIMULATIONFREQUENCY) {
                 int randomEvent = weightedSelection.selectRandomItem();
 
                 // Advance time
@@ -82,19 +82,19 @@ public class Main {
             if (library.members.isEmpty())
                 System.out.println("No members yet!");
             else {
-                if (verbose)
+                if (VERBOSE)
                     System.out.println("Members: " + library.members);
                 else
                     System.out.println("Members: " + library.members.size());
             }
 
-            if (verbose)
+            if (VERBOSE)
                 System.out.println("Available books: " + library.books);
             else
                 System.out.println("Available Books " + library.books.size());
 
 
-            if (library.currentDay >= simulationLength)
+            if (library.currentDay >= SIMULATIONLENGTH)
                 Input.waitForUserToPressEnter("Press Enter to end the simulation.");
             else
                 Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
