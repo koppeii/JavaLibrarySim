@@ -92,7 +92,7 @@ class Library {
 
         if (presentInLibrary.contains(member.name) && members.contains(member)) {
 
-            int outstandingLoans = member.loanedBooks.books.size();
+            int outstandingLoans = member.loanedBooks.getSize();
 
             if (outstandingLoans > 0) {
                 System.out.printf("%s attempted to revoke their membership with %d outstanding loan%s!\n", member.name, outstandingLoans, helper.pluralCheck(outstandingLoans));
@@ -114,7 +114,7 @@ class Library {
         if (member == null || book == null) return;
 
         if (books.contains(book) && presentInLibrary.contains(member.name)) {
-            if (member.loanedBooks.books.size() >= maxLoans) {
+            if (member.loanedBooks.getSize() >= maxLoans) {
                 System.out.printf("%s has attempted to take more than %d book%s at once!\n", member.name, maxLoans, helper.pluralCheck(maxLoans));
                 return;
             }
@@ -131,7 +131,7 @@ class Library {
 
         if (member == null || book == null) return;
 
-        if (member.loanedBooks.books.contains(book) && presentInLibrary.contains(member.name)) {
+        if (member.loanedBooks.bookExistsInLoans(book) && presentInLibrary.contains(member.name)) {
             member.loanedBooks.removeLoan(book);
             books.add(book);
 

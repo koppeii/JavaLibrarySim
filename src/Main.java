@@ -59,7 +59,7 @@ public class Main {
                         Member randomMember = helper.randomMember(library.members);
                         if (randomMember == null) break;
 
-                        library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.books));
+                        library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.returnLoans()));
                         break;
 
                     case 6:

@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Loan {
 
-    List<Book> books;
+    private List<Book> books;
 
     public Loan() { this.books = new ArrayList<>(); }
 
@@ -20,5 +20,17 @@ public class Loan {
             this.books.remove(book);
         else
             System.out.printf("\"%s\" either does not exist, or the member has not loaned out the book!", book.name);
+    }
+
+    public int getSize() {
+        return books.size();
+    }
+
+    public boolean bookExistsInLoans(Book book) {
+        return books.contains(book);
+    }
+
+    public List<Book> returnLoans() {
+        return books;
     }
 }
