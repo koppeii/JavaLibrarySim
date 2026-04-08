@@ -33,22 +33,22 @@ public class Helper {
         return "s";
      }
 
-     public String randomIndividual(List<Member> memberList) {
+     public String getRandomIndividual(List<Member> memberList) {
         int random = weightedSelection.selectRandomItem();
 
         if (random == 1)
             return generateRandomName();
         else {
-            Member randomMember = randomMember(memberList);
+            Member randomMember = getRandomMember(memberList);
 
             if (randomMember != null)
-                return randomMember(memberList).name;
+                return getRandomMember(memberList).getName();
             else
-                return "";
+                return null;
         }
      }
 
-    public Member randomMember(List<Member> memberList) {
+    public Member getRandomMember(List<Member> memberList) {
         // returns the name/object of a random individual in members
 
         if (!memberList.isEmpty()) {
@@ -60,7 +60,7 @@ public class Helper {
         return null;
     }
 
-    public String randomPersonInLibrary(List<String> people) {
+    public String getRandomPersonInLibrary(List<String> people) {
         // returns the name of a random individual in presentInLibrary
 
         if (!people.isEmpty()) {
@@ -68,10 +68,10 @@ public class Helper {
 
             return people.get(random);
         }
-        return "";
+        return null;
     }
 
-    public Book randomBook(List<Book> bookList) {
+    public Book getRandomBook(List<Book> bookList) {
         // returns a random string/Book from the given bookList
         if (!bookList.isEmpty()) {
             int random = Rand.randomInt(0, bookList.size());

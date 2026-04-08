@@ -16,85 +16,86 @@ public class Main {
 
         WeightedSelection<Integer> weightedSelection = new WeightedSelection<>(eventTypes, weightTypes);
 
-        final int SIMULATIONLENGTH = 14;
-        final int SIMULATIONFREQUENCY = 6;
+        final int SIMULATIONLENGTH = 67;
+        final int SIMULATIONFREQUENCY = 10;
         final boolean VERBOSE = false;
 
-        while (library.currentDay < SIMULATIONLENGTH) {
+        while (library.getCurrentDay() < SIMULATIONLENGTH) {
 
             // Advance time
-            library.currentDay++;
-            System.out.println("--- Day " + library.currentDay + "/" + SIMULATIONLENGTH + " Start ---");
+            library.dayStep(1);
+            System.out.println("--- Day " + library.getCurrentDay() + "/" + SIMULATIONLENGTH + " Start ---");
 
             // simulate a random event
 
-            while (library.currentHour < SIMULATIONFREQUENCY) {
+            while (library.getCurrentHour() < SIMULATIONFREQUENCY) {
                 int randomEvent = weightedSelection.selectRandomItem();
 
                 // Advance time
-                library.currentHour++;
+                library.hourStep(1);
 
                 switch (randomEvent) {
                     case 0:
-                        library.enter(helper.randomIndividual(library.members));
+                        library.enter(helper.getRandomIndividual(library.getMembers()));
                         break;
 
                     case 1:
-                        library.leave(helper.randomPersonInLibrary(library.presentInLibrary));
+                        library.leave(helper.getRandomPersonInLibrary(library.getPresentInLibrary()));
                         break;
 
                     case 2:
-                        library.applyMembership(helper.randomPersonInLibrary(library.presentInLibrary));
+                        library.applyMembership(helper.getRandomPersonInLibrary(library.getPresentInLibrary()));
                         break;
 
                     case 3:
-                        library.revokeMembership(helper.randomMember(library.members));
+                        library.revokeMembership(helper.getRandomMember(library.getMembers()));
                         break;
 
                     case 4:
-                        library.loanRandomBook(helper.randomMember(library.members), helper.randomBook(library.books));
+                        library.loanRandomBook(helper.getRandomMember(library.getMembers()), helper.getRandomBook(library.getBooks()));
                         break;
 
                     case 5:
-                        Member randomMember = helper.randomMember(library.members);
+                        Member randomMember = helper.getRandomMember(library.getMembers());
                         if (randomMember == null) break;
 
-                        library.returnRandomBook(randomMember, helper.randomBook(randomMember.loanedBooks.returnLoans()));
+                        library.returnRandomBook(randomMember, helper.getRandomBook(randomMember.getLoanedBooks().returnLoans()));
                         break;
 
                     case 6:
-                        String thief = helper.randomPersonInLibrary(library.presentInLibrary);
-                        if (thief.isBlank()) break;
+                        String thief = helper.getRandomPersonInLibrary(library.getPresentInLibrary());
+                        if (thief == null) break;
 
-                        library.stealBook(thief, helper.randomBook(library.books));
+                        library.stealBook(thief, helper.getRandomBook(library.getBooks()));
                         break;
                 }
             }
 
-            library.currentHour = 0;
+            library.setCurrentHour(0);
 
-            for (int m = library.presentInLibrary.size() - 1; m >= 0; m--)
-                library.leave(library.presentInLibrary.get(m));
+            for (int m = library.getPresentInLibrary().size() - 1; m >= 0; m--)
+                library.leave(library.getPresentInLibrary().get(m));
                 // libraries tend to empty out when they close
+                // this weird format is used because when removing a member, .size() changes, so this is best adapted for that reason
 
             System.out.println();
 
-            if (library.members.isEmpty())
+            if (library.getMembers().isEmpty())
                 System.out.println("No members yet!");
             else {
                 if (VERBOSE)
-                    System.out.println("Members: " + library.members);
+                    System.out.println("Members: " + library.getMembers());
                 else
-                    System.out.println("Members: " + library.members.size());
+                    System.out.println("Members: " + library.getMembers().size());
             }
 
             if (VERBOSE)
-                System.out.println("Available books: " + library.books);
+                System.out.println("Available books: " + library.getBooks());
             else
-                System.out.println("Available Books " + library.books.size());
+                System.out.println("Available Books " + library.getBooks().size());
 
 
-            if (library.currentDay >= SIMULATIONLENGTH)
+            if (library.getCurrentDay() >= SIMULATIONLENGTH)
                 Input.waitForUserToPressEnter("Press Enter to end the simulation.");
             else
                 Input.waitForUserToPressEnter("Press Enter to simulate the next day.");
