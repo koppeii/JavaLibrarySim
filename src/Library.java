@@ -6,42 +6,80 @@ import java.util.Optional;
 
 class Library {
 
-    int currentDay; // Current simulation day
-    int currentHour;
+    private int currentDay; // Current simulation day
+    private int currentHour;
 
-    final Helper helper = new Helper();
+    private final Helper helper = new Helper();
 
-    List<String> presentInLibrary = new ArrayList<>();
-    List<String> thiefList = new ArrayList<>();
+    private final List<String> presentInLibrary = new ArrayList<>();
+    private final List<String> thiefList = new ArrayList<>();
 
-    List<Member> members = new ArrayList<>();
-    List<Book> books = new ArrayList<>();
+    private final List<Member> members = new ArrayList<>();
+    private final List<Book> books = new ArrayList<>();
 
     private static final int maxLoans = 3;
-    private static final int maxMembers = 8;
+    private static final int maxMembers = 24;
 
     public Library() {
         // creates books for library when new Library();
 
-        books.add(new Book("Fundamentals of Thermodynamics"));
-        books.add(new Book("5 Steps to a 5: AP Chemistry"));
-        books.add(new Book("The Bible"));
-        books.add(new Book("Roses and Champagne"));
-        books.add(new Book("It ends with us"));
-        books.add(new Book("Chemistry 2"));
-        books.add(new Book("Forrest Gump"));
-        books.add(new Book("Forrest Gump: Gump & Co."));
-        books.add(new Book("Little Red Riding Hood"));
-        books.add(new Book("Hansel and Gretel"));
-        books.add(new Book("Cinderella"));
-        books.add(new Book("Alice in Wonderland"));
-        books.add(new Book("1984"));
-        books.add(new Book("Little Match Girl"));
-        books.add(new Book("Java For Dummies"));
+        addBooks("Fundamentals of Thermodynamics", 2);
+        addBooks("5 Steps to a 5: AP Chemistry", 3);
+        addBooks("The Bible", 7);
+        addBooks("Roses and Champagne", 2);
+        addBooks("It ends with us", 2);
+        addBooks("Chemistry 2", 1);
+        addBooks("Forrest Gump", 3);
+        addBooks("Forrest Gump: Gump & Co.", 2);
+        addBooks("Little Red Riding Hood", 3);
+        addBooks("Hansel and Gretel", 2);
+        addBooks("Cinderella", 4);
+        addBooks("Alice in Wonderland", 6);
+        addBooks("Little Match Girl", 2);
+        addBooks("Java For Dummies", 24);
+    }
+
+    public void setCurrentHour(int hour) {
+        currentHour = hour;
+    }
+
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+    public int getCurrentHour() {
+        return currentHour;
+    }
+
+    public void dayStep(int step) {
+        currentDay += step;
+    }
+
+    public void hourStep(int step) {
+        currentHour += step;
+    }
+
+    public List<String> getPresentInLibrary() {
+        return presentInLibrary;
+    }
+
+    public List<Member> getMembers() {
+        return members;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    private void addBooks(String name, int copies) {
+        for (int i = 0; i < copies; i++)
+            books.add(new Book(name));
     }
 
     public void enter(String name) {
-        if (!presentInLibrary.contains(name) && !name.isBlank()) {
+        if (name == null) return;
+
+        if (!presentInLibrary.contains(name)) {
             presentInLibrary.add(name);
 
             System.out.printf("%s has entered the Library!\n", name);
@@ -51,7 +89,9 @@ class Library {
     }
 
     public void leave(String name) {
-        if (presentInLibrary.contains(name) && !name.isBlank()) {
+        if (name == null) return;
+
+        if (presentInLibrary.contains(name)) {
             presentInLibrary.remove(name);
 
             System.out.printf("%s has left the Library!\n", name);
@@ -61,10 +101,10 @@ class Library {
     public void applyMembership(String personName) {
         // check if theyre in the library
 
-        if (personName.isBlank()) return;
+        if (personName == null) return;
 
         boolean existingMember = members.stream()
-                .anyMatch(member -> member.name.equals(personName));
+                .anyMatch(member -> member.getName().equals(personName));
             // checks if the person is already a member, new syntax
             // similar to pythons lambda
 
@@ -90,18 +130,18 @@ class Library {
 
         if (member == null) return;
 
-        if (presentInLibrary.contains(member.name) && members.contains(member)) {
+        if (presentInLibrary.contains(member.getName()) && members.contains(member)) {
 
-            int outstandingLoans = member.loanedBooks.books.size();
+            int outstandingLoans = member.getLoanedBooks().getSize();
 
             if (outstandingLoans > 0) {
-                System.out.printf("%s attempted to revoke their membership with %d outstanding loan%s!\n", member.name, outstandingLoans, helper.pluralCheck(outstandingLoans));
+                System.out.printf("%s attempted to revoke their membership with %d outstanding loan%s!\n", member.getName(), outstandingLoans, helper.pluralCheck(outstandingLoans));
                     // could have a function that adds a "s" when the count != 1
             }
             else {
                 members.remove(member);
 
-                System.out.printf("%s has revoked their membership!\n", member.name);
+                System.out.printf("%s has revoked their membership!\n", member.getName());
             }
         }
     }
@@ -113,16 +153,16 @@ class Library {
 
         if (member == null || book == null) return;
 
-        if (books.contains(book) && presentInLibrary.contains(member.name)) {
-            if (member.loanedBooks.books.size() >= maxLoans) {
-                System.out.printf("%s has attempted to take more than %d book%s at once!\n", member.name, maxLoans, helper.pluralCheck(maxLoans));
+        if (books.contains(book) && presentInLibrary.contains(member.getName())) {
+            if (member.getLoanedBooks().getSize() >= maxLoans) {
+                System.out.printf("%s has attempted to take more than %d book%s at once!\n", member.getName(), maxLoans, helper.pluralCheck(maxLoans));
                 return;
             }
 
-            member.loanedBooks.addLoan(book);
+            member.getLoanedBooks().addLoan(book);
             books.remove(book);
 
-            System.out.printf("%s has taken out the book \"%s\"!\n", member.name, book.name);
+            System.out.printf("%s has taken out the book \"%s\"!\n", member.getName(), book.getName());
         }
     }
 
@@ -131,24 +171,24 @@ class Library {
 
         if (member == null || book == null) return;
 
-        if (member.loanedBooks.books.contains(book) && presentInLibrary.contains(member.name)) {
-            member.loanedBooks.removeLoan(book);
+        if (member.getLoanedBooks().bookExistsInLoans(book) && presentInLibrary.contains(member.getName())) {
+            member.getLoanedBooks().removeLoan(book);
             books.add(book);
 
-            System.out.printf("%s has returned the book \"%s\"!\n", member.name, book.name);
+            System.out.printf("%s has returned the book \"%s\"!\n", member.getName(), book.getName());
         }
     }
 
     public void stealBook(String personName, Book book) {
 
-        if (personName.isBlank() || book == null) return;
+        if (personName == null || book == null) return;
 
         if (presentInLibrary.contains(personName)) {
             books.remove(book);
-            System.out.printf("%s has stolen the book! \"%s\"!\n", personName, book.name);
+            System.out.printf("%s has stolen the book! \"%s\"!\n", personName, book.getName());
 
             Optional<Member> existingMember = members.stream()
-                    .filter(member -> member.name.equals(personName))
+                    .filter(member -> member.getName().equals(personName))
                     .findFirst();
                 // finds if the thief, using their name, is a member.
                 // if not found, existingMember = null, else returns the appropiate Member
